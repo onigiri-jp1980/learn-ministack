@@ -1,0 +1,15 @@
+services:
+  ministack:
+    image: ministackorg/ministack:latest
+    ports:
+      - 4566:4566
+    environment:
+      # ステートを永続化する
+      - PERSIST_STATE=1
+      - STATE_DIR=/tmp/ministack-state
+      # S3のオブジェクトを永続化する
+      - S3_PERSIST=1
+      - S3_DATA_DIR=/tmp/ministack-data/s3
+    volumes:
+      - ./services/ministack/state/s3:/tmp/ministack-data/
+      - ./services/ministack/state:/tmp/ministack-state
